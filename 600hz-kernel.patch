@@ -1,0 +1,35 @@
+diff -Naur a/kernel/Kconfig.hz b/kernel/Kconfig.hz
+--- a/kernel/Kconfig.hz	2016-04-13 02:09:26.000000000 +1000
++++ b/kernel/Kconfig.hz	2016-04-20 20:32:42.518957324 +1000
+@@ -4,7 +4,7 @@
+ 
+ choice
+ 	prompt "Timer frequency"
+-	default HZ_250
++	default HZ_600
+ 	help
+ 	 Allows the configuration of the timer frequency. It is customary
+ 	 to have the timer interrupt run at 1000 Hz but 100 Hz may be more
+@@ -39,6 +39,14 @@
+ 	 on SMP and NUMA systems and exactly dividing by both PAL and
+ 	 NTSC frame rates for video and multimedia work.
+ 
++	config HZ_600
++		bool "600 HZ"
++	help
++	 600 Hz is a good compromise choice for fast interactive
++	 responses when target systems could be mobile devices running
++	 on battery, or not. It exactly divides by all modern common
++	 frame rates (24, 25, 30, 50, 60) for video and multimedia work.
++
+ 	config HZ_1000
+ 		bool "1000 HZ"
+ 	help
+@@ -52,6 +60,7 @@
+ 	default 100 if HZ_100
+ 	default 250 if HZ_250
+ 	default 300 if HZ_300
++	default 600 if HZ_600
+ 	default 1000 if HZ_1000
+ 
+ config SCHED_HRTICK
